@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="Assets/css/style.css" />
     <title>Weather Forecast</title>
 </head>
@@ -22,7 +25,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control searchInput" placeholder="Enter City Name">
                     <div class="input-group-append">
-                        <button class="btn" type="button"></button>
+                        <button class="btn fas fa-search" id="searchbutton" type="submit"></button>
                     </div>
                 </div>
             </div>
@@ -37,7 +40,7 @@
 
         <div class="col-md-6">
             <div class="card fiveDays">
-                <h4>5 Day Forecast</h4>
+                <h4>5 Day Forecast:</h4>
                 <div class="row">
                     <div class="col dayCard"></div>
                 </div>
