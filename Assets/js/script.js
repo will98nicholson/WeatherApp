@@ -24,5 +24,15 @@ searchButton.onclick = function () {
             var cityList = $(".list-group").addClass("list-group-item");
             cityList.append("<li>" + response.name + "</li>");
 
+            var logged = localStorage.setItem(keyCount, response.name);
+            keyCount = keyCount + 1;
+
+            var currentWeather = $(".currentWeather").append("<div>").addClass("card-body");
+            currentWeather.empty();
+            var currentCity = currentWeather.append("<p>");
+            currentWeather.append(currentCity);
+
+
+
         })
     }
