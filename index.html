@@ -16,48 +16,50 @@
     <h1 class="display-3">Weather Dashboard</h1>
     <p>Here's how the weather is looking in your area...</p>
 </header>
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <h2>Search for your City</h2>
-                <div class="input-group">
-                    <input type="text" class="form-control cityInput" placeholder="Enter City Name">
-                    <div class="input-group-append">
-                        <button class="btn fas fa-search" id="searchButton" type="submit"></button>
-                    </div>
-                </div>
-                <ul class="list-group">
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="col-md-3">
-            <div class="card currentWeather">
-                <h3>Current Weather:</h3>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card fiveDays">
-                <h4>5 Day Forecast:</h4>
-                <div class="row">
-                    <div class="col dayCard"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="Assets/js/script.js"></script>
 
 <body>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <h2>Search for your City</h2>
+                    <div class="input-group">
+                        <input type="text" class="form-control cityInput" id="typeCity" placeholder="Enter City Name">
+                        <div class="input-group-append">
+                            <button class="btn fas fa-search" id="searchButton" type="submit"></button>
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="card" id="currentWeather">
+                    <h3>Current Weather:</h3>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card fiveDays">
+                    <h4>5 Day Forecast:</h4>
+                    <div class="row">
+                        <div class="col dayCard"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="Assets/js/fetch.js"></script>
+    <script src="Assets/js/pop.js"></script>
+    <script src="Assets/js/search.js"></script>
+
+
 
 </body>
 
