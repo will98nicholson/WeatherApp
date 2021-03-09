@@ -13,7 +13,7 @@ should also be able to see icons matching the weather descriptions.
 
 ### Visuals
 
-![screenshot first](./Assets/)
+![screenshot first](./Assets/Images/page.png)
 
 ![screenshot second](./Assets/)
 
@@ -22,4 +22,4 @@ should also be able to see icons matching the weather descriptions.
 
 
 ### Links
-[deployedApplication]  https://will98nicholson.github.io//
+[deployedApplication]   https://will98nicholson.github.io/WeatherApp/
