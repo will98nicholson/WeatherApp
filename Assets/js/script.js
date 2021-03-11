@@ -1,3 +1,19 @@
+class Fetch {
+    async getCurrent(input) {
+        const apiKey = "3b3b57943ecc5559dd982ec49a44012a";
+
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${apiKey}`
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        return data;
+    }
+}
+
 class UI {
     constructor() {
         this.uiContainer = document.getElementById("currentWeather");
@@ -44,3 +60,24 @@ class UI {
         localStorage.clear();
     }
 }
+
+const ft = new Fetch();
+const ui = new UI();
+
+const search = document.getElementById("typeCity");
+const button = document.getElementById("searchButton");
+button.addEventListener("click", () => {
+    const currentVal = search.value;
+
+    ft.getCurrent(currentVal).then((data) => {
+
+        ui.populateUI(data);
+
+        ui.saveToLS(data);
+    });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const dataSaved = ui.getFromLS();
+    ui.populateUI(dataSaved);
+});
