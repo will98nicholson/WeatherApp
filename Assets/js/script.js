@@ -1,9 +1,10 @@
+
 class Fetch {
     async getCurrent(input) {
         const apiKey = "3b3b57943ecc5559dd982ec49a44012a";
 
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${apiKey}`
+            `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${apiKey}&units=imperial`
         );
 
         const data = await response.json();
@@ -12,30 +13,61 @@ class Fetch {
 
         return data;
     }
+    async getForecast(res) {
+        const apiKey = "3b3b57943ecc5559dd982ec49a44012a";
+        console.log(res);
+        const lat = res.coord.lat
+        const lon = res.coord.lon
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=imperial`
+        );
+
+        const data = await response.json();
+        data.name = res.name
+        console.log(data);
+
+        return data;
+
+    }
 }
 
 class UI {
     constructor() {
         this.uiContainer = document.getElementById("currentWeather");
+        this.uiForecastContainer = document.getElementById("5dayweather")
         this.city;
         this.defaultCity = "Columbus";
     }
 
     populateUI(data) {
-
+        console.log(data);
         this.uiContainer.innerHTML = `
         
         <div class="card mx-auto mt-5" style="width: 18rem;">
             <div class="card-body justify-content-center">
                 <h5 class="card-title">${data.name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}. Lows of ${data.main.temp_min}</h6>
-                <p class="card-text ">In ${data.name}, the current conditons are: ${data.weather[0].description}</p>
+                <img src="http://openweathermap.org/img/w/${data.current.weather[0].icon}.png"></img>
+                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.daily[0].temp.max}. Lows of ${data.daily[0].temp.min}</h6>
+                <p class="card-text ">In ${data.name}, the current conditons are: ${data.daily[0].weather[0].description}</p>
                 
             </div>
         </div>
-        
-        
         `;
+        for (let i = 1; i < 6; i++) {
+            this.uiForecastContainer.innerHTML += `
+        
+        <div class="card mx-auto mt-5" style="width: 18rem;">
+            <div class="card-body justify-content-center">
+                <h5 class="card-title">${data.name}</h5>
+                <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png"></img>
+                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.daily[i].temp.max}. Lows of ${data.daily[i].temp.min}</h6>
+                <p class="card-text ">In ${data.name}, the current conditons are: ${data.daily[i].weather[0].description}</p>
+                
+            </div>
+        </div>
+        `;
+
+        }
     }
 
     clearUI() {
@@ -70,14 +102,25 @@ button.addEventListener("click", () => {
     const currentVal = search.value;
 
     ft.getCurrent(currentVal).then((data) => {
+        ft.getForecast(data).then((forecastData) => {
+            ui.populateUI(forecastData);
 
-        ui.populateUI(data);
-
-        ui.saveToLS(data);
+            ui.saveToLS(forecastData);
+        })
     });
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-    const dataSaved = ui.getFromLS();
-    ui.populateUI(dataSaved);
-});
+// window.addEventListener("DOMContentLoaded", () => {
+//     const dataSaved = ui.getFromLS();
+//     ui.populateUI(dataSaved);
+// });
+
+
+for (var i = 0; i < localStorage.length; i++) {
+
+    var city = localStorage.getItem(i);
+
+    var cityName = $(".list-group").addClass("list-group-item");
+
+    cityName.append("<li>" + city + "</li>");
+}
