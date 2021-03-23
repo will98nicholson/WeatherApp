@@ -51,6 +51,7 @@ class UI {
                 <img src="http://openweathermap.org/img/w/${data.current.weather[0].icon}.png"></img>
                 <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.daily[0].temp.max}. Lows of ${data.daily[0].temp.min}</h6>
                 <p class="card-text ">In ${data.name}, the current conditons are: ${data.daily[0].weather[0].description}</p>
+                <p class="uvi-text"> UV Index is: ${data.current.uvi}</p>
                 
             </div>
         </div>
@@ -63,7 +64,7 @@ class UI {
                 <h5 class="card-title">${new Date(data.daily[i].dt * 1000).toDateString()}</h5>
                 <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png"></img>
                 <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.daily[i].temp.max}. Lows of ${data.daily[i].temp.min}</h6>
-                <p class="card-text ">On ${data.name}, the current conditons are likely to be: ${data.daily[i].weather[0].description}</p>
+                <p class="card-text ">Conditons are likely to be: ${data.daily[i].weather[0].description}</p>
                 
             </div>
         </div>
