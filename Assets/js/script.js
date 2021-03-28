@@ -1,5 +1,6 @@
-
+//fetches using constructors
 class Fetch {
+    // current weather API call
     async getCurrent(input) {
         const apiKey = "3b3b57943ecc5559dd982ec49a44012a";
 
@@ -13,12 +14,14 @@ class Fetch {
 
         return data;
     }
+    //5day forecast API call
     async getForecast(res) {
         const apiKey = "3b3b57943ecc5559dd982ec49a44012a";
         console.log(res);
         const lat = res.coord.lat
         const lon = res.coord.lon
         const response = await fetch(
+            //API endpoint cant take in city, so needs latitude and longitude
             `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=imperial`
         );
 
@@ -34,11 +37,11 @@ class Fetch {
 class UI {
     constructor() {
         this.uiContainer = document.getElementById("currentWeather");
-        this.uiForecastContainer = document.getElementById("5dayweather")
+        this.uiForecastContainer = document.getElementById("5dayweather");
         this.city;
         this.defaultCity = "Columbus";
     }
-
+    //populate respective areas with fetched data
     populateUI(data) {
         console.log(data);
         console.log(data.current.dt);
@@ -56,6 +59,7 @@ class UI {
             </div>
         </div>
         `;
+        //append day cards for 5 days ahead
         for (let i = 1; i < 6; i++) {
             this.uiForecastContainer.innerHTML += `
         
@@ -116,11 +120,4 @@ button.addEventListener("click", () => {
 
 
 
-for (var i = 0; i < localStorage.length; i++) {
 
-    var city = localStorage.getItem(i);
-
-    var cityName = $(".list-group").addClass("list-group-item");
-
-    cityName.append("<li>" + city + "</li>");
-}

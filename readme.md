@@ -13,11 +13,8 @@ should also be able to see icons matching the weather descriptions.
 
 ### Visuals
 
-![screenshot first](./Assets/Images/page.png)
+![screenshot first](./Assets/Images/page1.png)
 
-![screenshot second](./Assets/)
-
-![screenshot third](./Assets/)
 
 
 
