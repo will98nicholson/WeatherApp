@@ -38,14 +38,30 @@ class UI {
     constructor() {
         this.uiContainer = document.getElementById("currentWeather");
         this.uiForecastContainer = document.getElementById("5dayweather");
+        this.ulList = document.getElementById("list-group");
         this.city;
-        this.defaultCity = "Columbus";
+        this.cities = [];
+
+
+
+    }
+    populateList() {
+        this.ulList.innerHTML = "";
+        this.cities.forEach(city => {
+
+            this.ulList.innerHTML += `
+            <button type="button" class="list-group-item list-group-item-action " >
+            ${city}
+          </button>
+            `
+        })
     }
     //populate respective areas with fetched data
     populateUI(data) {
         console.log(data);
         console.log(data.current.dt);
-        console.log(new Date(data.current.dt * 1000).toDateString())
+        console.log(new Date(data.current.dt * 1000).toDateString());
+        this.populateList();
         this.uiContainer.innerHTML = `
         
         <div class="card mx-auto mt-5" style="width: 18rem;">
@@ -59,6 +75,7 @@ class UI {
             </div>
         </div>
         `;
+        this.uiForecastContainer.innerHTML = "";
         //append day cards for 5 days ahead
         for (let i = 1; i < 6; i++) {
             this.uiForecastContainer.innerHTML += `
@@ -83,17 +100,23 @@ class UI {
 
     saveToLS(data) {
         localStorage.setItem("city", JSON.stringify(data));
+        localStorage.setItem("cities", JSON.stringify(this.cities));
     }
 
     getFromLS() {
-        if (localStorage.getItem("city" == null)) {
-            return this.defaultCity;
+        if (localStorage.getItem("city")) {
+
+            this.city = JSON.parse(localStorage.getItem("city")).name;
         } else {
-            this.city = JSON.parse(localStorage.getItem("city"));
+            this.city = "Columbus"
+        }
+        if (localStorage.getItem("cities")) {
+            this.cities = JSON.parse(localStorage.getItem("cities"))
         }
 
-        return this.city;
     }
+
+
 
     clearLS() {
         localStorage.clear();
@@ -110,12 +133,44 @@ button.addEventListener("click", () => {
 
     ft.getCurrent(currentVal).then((data) => {
         ft.getForecast(data).then((forecastData) => {
+            console.log(forecastData);
+            if (!ui.cities.includes(forecastData.name)) {
+                ui.cities.unshift(forecastData.name)
+            }
+
             ui.populateUI(forecastData);
 
             ui.saveToLS(forecastData);
         })
     });
 });
+ui.ulList.addEventListener("click", (e) => {
+
+    if (e.target.matches("button")) {
+        console.log(e.target.innerText);
+
+        ft.getCurrent(e.target.innerText).then((data) => {
+            ft.getForecast(data).then((forecastData) => {
+                console.log(forecastData);
+                // ui.cities.push(forecastData.name);
+                ui.populateUI(forecastData);
+
+                ui.saveToLS(forecastData);
+            })
+        });
+    }
+});
+ui.getFromLS();
+console.log(ui.city);
+ft.getCurrent(ui.city).then((data) => {
+    ft.getForecast(data).then((forecastData) => {
+        console.log(forecastData)
+        ui.populateUI(forecastData);
+
+        ui.saveToLS(forecastData);
+    })
+});
+
 
 
 
